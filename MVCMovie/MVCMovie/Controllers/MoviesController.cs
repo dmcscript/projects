@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
 
@@ -12,8 +8,7 @@ namespace MVCMovie.Controllers
 {
     public class MoviesController : Controller
     {
-        private MovieDBContext db = new MovieDBContext();
-
+        private readonly MovieDBContext db = new MovieDBContext();
         // GET: Movies
         public ActionResult Index()
         {
@@ -27,7 +22,7 @@ namespace MVCMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+            var movie = db.Movies.Find(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -65,7 +60,7 @@ namespace MVCMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+            var movie = db.Movies.Find(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -96,7 +91,7 @@ namespace MVCMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+            var movie = db.Movies.Find(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -109,7 +104,7 @@ namespace MVCMovie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Movie movie = db.Movies.Find(id);
+            var movie = db.Movies.Find(id);
             db.Movies.Remove(movie);
             db.SaveChanges();
             return RedirectToAction("Index");
